@@ -3,16 +3,9 @@ defmodule ElixirWarrior do
   Documentation for ElixirWarrior.
   """
 
-  @doc """
-  Hello world.
+  alias ElixirWarrior.Levels.One
 
-  ## Examples
-
-      iex> ElixirWarrior.hello()
-      :world
-
-  """
   def hello do
-    :world
+    IO.inspect(One.map())
   end
 end
