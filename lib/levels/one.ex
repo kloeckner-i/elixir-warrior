@@ -1,6 +1,8 @@
 defmodule ElixirWarrior.Levels.One do
   @behaviour ElixirWarrior.Level
 
+  alias ElixirWarrior.Warrior
+
   def map do
     """
      --------
@@ -21,7 +23,11 @@ defmodule ElixirWarrior.Levels.One do
 
   def stairs_at, do: {7, 0}
 
-  def warrior_at, do: {0, 1}
-  def warrior_direction, do: :east
-  def warrior_abilities, do: [:walk]
+  def warrior do
+    %Warrior{
+      position: {0, 1},
+      direction: :east,
+      abilities: [:walk]
+    }
+  end
 end
