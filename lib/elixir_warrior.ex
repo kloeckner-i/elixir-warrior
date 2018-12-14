@@ -3,7 +3,7 @@ defmodule ElixirWarrior do
   Documentation for ElixirWarrior.
   """
 
-  alias ElixirWarrior.Levels.One
+  alias ElixirWarrior.Towers.One
 
   def hello do
     IO.inspect(One.map())
