@@ -1,5 +1,5 @@
-defmodule ElixirWarrior.Levels.One do
-  @behaviour ElixirWarrior.Level
+defmodule ElixirWarrior.Towers.One do
+  @behaviour ElixirWarrior.Tower
 
   alias ElixirWarrior.Warrior
 

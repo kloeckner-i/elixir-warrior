@@ -1,4 +1,4 @@
-defmodule ElixirWarrior.Level do
+defmodule ElixirWarrior.Tower do
   alias ElixirWarrior.Warrior
 
   @type coord :: {non_neg_integer, non_neg_integer}
