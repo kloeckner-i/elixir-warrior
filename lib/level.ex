@@ -1,7 +1,7 @@
 defmodule ElixirWarrior.Level do
-  @type coord :: {non_neg_integer, non_neg_integer}
+  alias ElixirWarrior.Warrior
 
-  @type direction :: :east | :west | :north | :south
+  @type coord :: {non_neg_integer, non_neg_integer}
 
   @callback map() :: String.t()
   @callback description() :: String.t()
@@ -9,7 +9,5 @@ defmodule ElixirWarrior.Level do
 
   @callback objects() :: [term]
   @callback stairs_at() :: coord
-  @callback warrior_at() :: coord
-  @callback warrior_direction() :: direction
-  @callback warrior_abilities() :: [atom]
+  @callback warrior() :: Warrior.t()
 end
