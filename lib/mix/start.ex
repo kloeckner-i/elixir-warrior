@@ -5,6 +5,6 @@ defmodule Mix.Tasks.Start do
 
   @shortdoc "Let's go and fight"
   def run(argv) do
-    IO.inspect(ElixirWarrior.hello())
+    GameServer.start_link()
   end
 end
