@@ -18,6 +18,14 @@ defmodule ElixirWarrior.Towers.One do
   def parse_square(?@), do: :warrior
   def parse_square(?>), do: :stairs
 
+
+  def display_square(:horizontal_wall), do: "-"
+  def display_square(:vertical_wall), do: "|"
+  def display_square(:warrior), do: "@"
+  def display_square(:stairs), do: ">"
+  def display_square(:space), do: " "
+
+
   def parse_line(y, line) do
     chars =
       line
@@ -25,28 +33,35 @@ defmodule ElixirWarrior.Towers.One do
       |> Enum.with_index()
 
     for {ch, x} <- chars,
-      ch != 32,
+      ch != ?\s,
       do: {{x, y}, parse_square(ch)},
       into: %{}
   end
 
   def parse_map(map) do
-    rows =
       map
       |> String.trim_trailing()
       |> String.split(~r/\R/)
       |> Enum.with_index()
+      |> Enum.reduce(%{}, fn {line, y}, acc -> Map.merge(acc,parse_line(y, line)) end)
+  end
 
-    for {row, y} <- rows do
-      parse_line(y, row)
+  def display(parsed_map) do
+    for y <- 0..5, x <- 0..10 do
+      Map.get(parsed_map, {x,y}, :space)
+      |> display_square()
+      |> new_line(x)
     end
+    |> Enum.join()
+    |> IO.puts()
+  end
 
-    # %{
-    #   {1,0} => :wall,
-    #   {2,0} => :wall,
-    #   {1,1} => :warrior,
-    #   {3,7} => :stairs
-    # }
+  def new_line(char, 10) do
+    char <> "\n"
+  end
+
+  def new_line(char , _x) do
+    char
   end
 
   def description do
