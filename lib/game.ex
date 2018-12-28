@@ -14,6 +14,9 @@ defmodule ElixirWarrior.Game do
       {:walk, :east} ->
         %{state | warrior: %Warrior{warrior | position: {x + 1, y}}}
 
+      {:walk, _} ->
+        %{state | warrior: %Warrior{warrior | position: {x, y}}}
+
       _ ->
         raise "invalid action"
     end
