@@ -6,6 +6,6 @@ defmodule ElixirWarrior do
   alias ElixirWarrior.Towers.One
 
   def hello do
-    IO.inspect(One.map())
+    IO.inspect(One.floor_plan())
   end
 end

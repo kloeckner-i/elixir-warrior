@@ -3,6 +3,7 @@ defmodule GameServer do
 
   alias ElixirWarrior.Game
   alias ElixirWarrior.Towers.One
+  alias ElixirWarrior.Tower
 
   def start_link() do
     GenServer.start_link(__MODULE__, %{})
@@ -20,7 +21,9 @@ defmodule GameServer do
        tower: One,
        player: ElixirWarrior.Player,
        warrior: warrior,
-       watcher_pid: watcher_pid
+       watcher_pid: watcher_pid,
+       current_floor: Tower.parse_floor_plan(One.floor_plan()),
+       status: :active
      }}
   end
 
@@ -28,8 +31,18 @@ defmodule GameServer do
     IO.inspect("step: #{time} ")
     # Put code that handles game state here
     new_state = Game.tick(state)
-    IO.inspect(new_state)
-    Process.send_after(self(), :turn, 1000)
+
+    case new_state do
+      %{status: :victory} ->
+        IO.puts("Congratulations, You've won!!!")
+
+      %{status: :game_over} ->
+        IO.puts("Game Over")
+
+      %{status: :active} = new_state ->
+        IO.puts(Tower.display(new_state.current_floor))
+        Process.send_after(self(), :turn, 1000)
+    end
 
     {:noreply, %{new_state | time: time + 1}}
   end
