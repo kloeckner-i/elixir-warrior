@@ -66,7 +66,7 @@ defmodule ElixirWarrior.Tower do
 
   ## Examples
 
-      iex> Tower.display(
+      iex> Tower.display_floor_plan(
       ...>   %{
       ...>     {0, 0} => :horizontal_wall,
       ...>     {0, 1} => :vertical_wall,
@@ -84,23 +84,23 @@ defmodule ElixirWarrior.Tower do
       ...>     {4, 2} => :horizontal_wall
       ...>   }
       ...> )
-      "-----\\n|@ >|\\n-----\\n"
+      "-----\\n|@ >|\\n-----"
   """
-  def display(plan) do
+  def display_floor_plan(plan) do
     x_max = Enum.max(for {{x, _}, _} <- plan, do: x)
     y_max = Enum.max(for {{_, y}, _} <- plan, do: y)
 
-    for y <- 0..y_max, x <- 0..x_max do
-      cell =
-        plan
-        |> Map.get({x, y}, :space)
-        |> display_cell()
+    for y <- 0..y_max do
+      display_row(plan, 0..x_max, y)
+    end
+    |> Enum.join("\n")
+  end
 
-      if x == x_max do
-        cell <> "\n"
-      else
-        cell
-      end
+  defp display_row(plan, xs, y) do
+    for x <- xs do
+      plan
+      |> Map.get({x, y}, :space)
+      |> display_cell()
     end
     |> Enum.join()
   end
