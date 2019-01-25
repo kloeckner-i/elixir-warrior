@@ -25,6 +25,11 @@ defmodule ElixirWarrior.GameServer do
 
     Process.send_after(self(), :turn, 1000)
 
+    # TODO: consider initializing "game" state via a `Game.init/1` or
+    # `Game.new/1` function.
+    #
+    # This server shouldn't know too much about the game itself, it's only
+    # in charge of ticks/turns and subscriptions.
     {:ok,
      %{
        turns: 0,

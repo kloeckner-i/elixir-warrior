@@ -1,6 +1,6 @@
 defmodule ElixirWarrior.CLI do
   @moduledoc """
-  Documentation for ElixirWarrior.
+  Implements the CLI version of elixir_warrior.
   """
 
   alias ElixirWarrior.{GameServer, Reloader, Tower}
