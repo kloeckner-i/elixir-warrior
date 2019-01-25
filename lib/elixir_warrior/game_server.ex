@@ -38,6 +38,7 @@ defmodule ElixirWarrior.GameServer do
        warrior: tower.warrior(),
        current_floor: Tower.parse_floor_plan(tower.floor_plan()),
        status: :active,
+       player_state: %{},
        subscribers: []
      }}
   end

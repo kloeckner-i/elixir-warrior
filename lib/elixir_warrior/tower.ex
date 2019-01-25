@@ -110,8 +110,8 @@ defmodule ElixirWarrior.Tower do
   defp display_cell(:horizontal_wall), do: "-"
   defp display_cell(:vertical_wall), do: "|"
   defp display_cell(:warrior), do: "@"
-  defp display_cell(:sludge), do: "s"
-  defp display_cell(:thick_sludge), do: "S"
+  defp display_cell({:sludge, _}), do: "s"
+  defp display_cell({:thick_sludge, _}), do: "S"
   defp display_cell(:stairs), do: ">"
   defp display_cell(:space), do: " "
 end

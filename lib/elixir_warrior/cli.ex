@@ -3,10 +3,10 @@ defmodule ElixirWarrior.CLI do
   Implements the CLI version of elixir_warrior.
   """
 
-  alias ElixirWarrior.{GameServer, Reloader, Tower}
+  alias ElixirWarrior.{GameServer, Reloader, Tower, Towers}
 
   def run(_argv) do
-    {:ok, game_server} = GameServer.start_link()
+    {:ok, game_server} = GameServer.start_link(tower: Towers.Two)
 
     # TODO: do something with the reloader (i.e., restart things)
     {:ok, file_watcher} = FileSystem.start_link(dirs: ["lib/elixir_warrior/player/"])
