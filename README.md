@@ -2,6 +2,19 @@
 
 **TODO: Add description**
 
+## How to Play (v1)
+
+Edit the code in [`lib/elixir_warrior/player/player.ex`](./lib/elixir_warrior/player/player.ex).
+
+Then run the following:
+
+```bash
+mix start
+```
+
+TODO: how to select a level, player templates, more convenient `player/`
+location, ...
+
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed
