@@ -8,7 +8,8 @@ defmodule ElixirWarrior.Game do
   def tick(%{current_floor: floor, player: player, warrior: warrior} = state) do
     {x, y} = warrior_position(floor)
 
-    case player.handle_turn(warrior) do
+    # TODO: pass player state as second argument
+    case player.handle_turn(warrior, nil) do
       {:walk, :east} ->
         move_position(state, {x + 1, y})
 

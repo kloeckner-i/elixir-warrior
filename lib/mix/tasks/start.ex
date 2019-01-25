@@ -3,8 +3,10 @@ defmodule Mix.Tasks.Start do
 
   use Mix.Task
 
+  alias ElixirWarrior.CLI
+
   @shortdoc "Let's go and fight"
-  def run(_argv) do
-    GameServer.start_link()
+  def run(argv) do
+    CLI.run(argv)
   end
 end
