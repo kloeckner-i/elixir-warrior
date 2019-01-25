@@ -59,6 +59,8 @@ defmodule ElixirWarrior.Tower do
   defp parse_cell(?|), do: :vertical_wall
   defp parse_cell(?@), do: :warrior
   defp parse_cell(?>), do: :stairs
+  defp parse_cell(?s), do: {:sludge, 12}
+  defp parse_cell(?S), do: {:thick_sludge, 24}
 
 
   @doc """
@@ -108,6 +110,8 @@ defmodule ElixirWarrior.Tower do
   defp display_cell(:horizontal_wall), do: "-"
   defp display_cell(:vertical_wall), do: "|"
   defp display_cell(:warrior), do: "@"
+  defp display_cell(:sludge), do: "s"
+  defp display_cell(:thick_sludge), do: "S"
   defp display_cell(:stairs), do: ">"
   defp display_cell(:space), do: " "
 end
