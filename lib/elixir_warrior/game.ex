@@ -40,11 +40,11 @@ defmodule ElixirWarrior.Game do
     warrior_position
   end
 
-  defp move_position(%{current_floor: floor} = state, new_position) do
+  defp move_position(%{current_floor: floor, warrior: warrior} = state, new_position) do
     case floor[new_position] do
       nil ->
         updated_floor = update_position(floor, new_position)
-        %{state | current_floor: updated_floor}
+        %{state | current_floor: updated_floor, warrior: %{warrior | position: new_position}}
 
       :stairs ->
         updated_floor = update_position(floor, new_position)

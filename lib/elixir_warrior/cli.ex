@@ -20,6 +20,7 @@ defmodule ElixirWarrior.CLI do
   def loop do
     receive do
       {:turn, %{current_floor: floor}} ->
+        IO.puts(IO.ANSI.clear())
         IO.puts(Tower.display_floor_plan(floor))
         loop()
 
