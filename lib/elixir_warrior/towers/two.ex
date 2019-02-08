@@ -21,11 +21,8 @@ defmodule ElixirWarrior.Towers.Two do
 
   def warrior do
     %Warrior{
-      position: {0, 0},
-      direction: :east,
       abilities: [:walk],
-      health: 100,
-      spaces: []
+      health: 100
     }
   end
 end

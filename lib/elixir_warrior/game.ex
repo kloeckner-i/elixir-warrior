@@ -4,40 +4,24 @@ defmodule ElixirWarrior.Game do
   `handle_turn/2` callback.
   """
 
+  @directions [:east, :west, :south, :north]
+
   def tick(%{current_floor: floor, player: player, warrior: warrior, player_state: player_state} = state) do
     position = warrior_position(floor)
 
     # TODO: update the warrior with new information from the floor
     # TODO: pass player state as second argument
     {action, player_state} = player.handle_turn(warrior, player_state)
+
     new_state = %{state | player_state: player_state}
 
     case action do
-      {:walk, :east} ->
-        move_position(new_state, new_position(:east , position))
+      {:walk, direction} when direction in @directions ->
+        move_position(new_state, new_position(direction, position))
 
-      {:walk, :west} ->
-        move_position(new_state, new_position(:west , position))
+      {:attack, direction} when direction in @directions ->
+        attack(new_state, new_position(direction, position))
 
-      {:walk, :south} ->
-        move_position(new_state, new_position(:south , position))
-
-      {:walk, :north} ->
-        move_position(new_state, new_position(:north , position))
-
-      {:attack, :east} ->
-        attack(new_state, new_position(:east , position))
-
-      {:attack, :west} ->
-        attack(new_state, new_position(:west , position))
-
-      {:attack, :south} ->
-        attack(new_state, new_position(:south , position))
-
-      {:attack, :north} ->
-        attack(new_state, new_position(:north , position))
-
-      # TODO: handle {:attack, direction}
       # TODO: handle :rest
       # TODO: handle {:bind, direction} ?? what does this do
       # TODO: handle {:rescue, direction}
@@ -49,23 +33,20 @@ defmodule ElixirWarrior.Game do
     # %{state | last_action: "Rescued captive (west)"}
     # %{state | last_action: "Attacked enemy for 1 damage (5 HP remaining) (west)"}
   end
-  def walk() do
 
-  end
-
-  def new_position(:east , {x, y}) do
+  def new_position(:east, {x, y}) do
     {x + 1, y}
   end
 
-  def new_position(:west , {x, y}) do
+  def new_position(:west, {x, y}) do
     {x - 1, y}
   end
 
-  def new_position(:south , {x, y}) do
+  def new_position(:south, {x, y}) do
     {x, y + 1}
   end
 
-  def new_position(:north , {x, y}) do
+  def new_position(:north, {x, y}) do
     {x, y - 1}
   end
 
@@ -78,7 +59,7 @@ defmodule ElixirWarrior.Game do
     case floor[new_position] do
       nil ->
         updated_floor = move_warrior(floor, new_position)
-        %{state | current_floor: updated_floor, warrior: %{warrior | position: new_position}}
+        %{state | current_floor: updated_floor}
 
       :stairs ->
         updated_floor = move_warrior(floor, new_position)
@@ -95,6 +76,7 @@ defmodule ElixirWarrior.Game do
       {:sludge, hp} when hp > 1 ->
         updated_floor = Map.put(floor, new_position, {:sludge, hp - 1})
         %{state | current_floor: updated_floor}
+
       {:sludge, 1} ->
         updated_floor = Map.put(floor, new_position, :space)
         %{state | current_floor: updated_floor}
